@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="mECU" InternalType="">
+  <Plugins>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+  "name": "Debug",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }]]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="../main.c"/>
+    <File Name="../Makefile"/>
+    <File Name="idling_state.c"/>
+    <File Name="src/system_stm32f30x.c"/>
+    <File Name="src/megasquirt_protocol.c"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="inc">
+    <File Name="state_machine.h"/>
+    <File Name="inc/idling_state.h"/>
+    <File Name="inc/stm32f30x.h"/>
+    <File Name="inc/pins.h"/>
+    <File Name="inc/megasquirt_protocol.h"/>
+    <File Name="inc/engine_params.h"/>
+  </VirtualDirectory>
+  <Settings Type="Dynamic Library">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="gnu gcc" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Debug" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="/home/kevin/git/mECU/stm32f3_code" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="yes" RemoteHostName="localhost" RemoteHostPort="3333" DebuggerPath="../../../gcc-arm/bin/arm-none-eabi-gdb" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands>set remote hardware-breakpoint-limit 6
+set remote hardware-watchpoint-limit 4
+monitor reset init
+monitor halt
+file main.elf
+load main.elf
+monitor reset halt</PostConnectCommands>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">PATH=$PATH:$armgcc</Command>
+        <Command Enabled="yes">echo $PATH</Command>
+      </PreBuild>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <Target Name="Program">make program</Target>
+        <Target Name="Debug">make debug</Target>
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths>./inc
+../../stm32f3-discovery-basic-template/Libraries/STM32F30x_StdPeriph_Driver/inc</SearchPaths>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="gnu gcc" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O2" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Release" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+  <VirtualDirectory Name="st_lib_inc">
+    <File Name="inc/stm32f3/stm32f30x_adc.h"/>
+    <File Name="inc/stm32f3/stm32f30x_can.h"/>
+    <File Name="inc/stm32f3/stm32f30x_comp.h"/>
+    <File Name="inc/stm32f3/stm32f30x_crc.h"/>
+    <File Name="inc/stm32f3/stm32f30x_dac.h"/>
+    <File Name="inc/stm32f3/stm32f30x_dbgmcu.h"/>
+    <File Name="inc/stm32f3/stm32f30x_dma.h"/>
+    <File Name="inc/stm32f3/stm32f30x_exti.h"/>
+    <File Name="inc/stm32f3/stm32f30x_flash.h"/>
+    <File Name="inc/stm32f3/stm32f30x_gpio.h"/>
+    <File Name="inc/stm32f3/stm32f30x_i2c.h"/>
+    <File Name="inc/stm32f3/stm32f30x_iwdg.h"/>
+    <File Name="inc/stm32f3/stm32f30x_misc.h"/>
+    <File Name="inc/stm32f3/stm32f30x_opamp.h"/>
+    <File Name="inc/stm32f3/stm32f30x_pwr.h"/>
+    <File Name="inc/stm32f3/stm32f30x_rcc.h"/>
+    <File Name="inc/stm32f3/stm32f30x_rtc.h"/>
+    <File Name="inc/stm32f3/stm32f30x_spi.h"/>
+    <File Name="inc/stm32f3/stm32f30x_syscfg.h"/>
+    <File Name="inc/stm32f3/stm32f30x_tim.h"/>
+    <File Name="inc/stm32f3/stm32f30x_usart.h"/>
+    <File Name="inc/stm32f3/stm32f30x_wwdg.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="st_lib_src">
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_adc.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_can.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_comp.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_crc.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_dac.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_dbgmcu.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_dma.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_exti.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_flash.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_fmc.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_gpio.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_hrtim.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_i2c.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_iwdg.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_misc.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_opamp.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_pwr.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_rcc.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_rtc.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_spi.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_syscfg.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_tim.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_usart.c"/>
+    <File Name="Libraries/STM32F30x_StdPeriph_Driver/src/stm32f30x_wwdg.c"/>
+  </VirtualDirectory>
+</CodeLite_Project>
