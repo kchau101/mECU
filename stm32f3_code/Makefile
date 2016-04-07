@@ -16,7 +16,7 @@
 #
 #
 # put your *.o targets here, make should handle the rest!
-SRCS = main.c system_stm32f30x.c idling_state.c megasquirt_protocol.c
+SRCS = main.c system_stm32f30x.c megasquirt_protocol.c uart.c
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
 PROJ_NAME=main

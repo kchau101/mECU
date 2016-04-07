@@ -1,7 +1,7 @@
 #include "stm32f30x_conf.h"
 #include "stm32f30x_rcc.h"
 #include "state_machine.h"
-#include "idling_state.h"
+#include "engine_params.h"
 #include "pins.h"
 
 /* Disable Systicks for now
@@ -18,7 +18,7 @@ void SysTick_Handler(void) {
 }
 */
 
-State illegal_state(void)
+State illegal_state(System_Vars *s_vars)
 {
 	const char* state_desc = "ILLEGAL";
 	while(1);
@@ -27,8 +27,9 @@ State illegal_state(void)
 /**
  * @brief Configure general purpose IOs. Requires the use of TMR2,
  * 	       call the timer configuration before GPIO config.
+ *         Populate the system_vars variable;
  */
-State init_state(void)
+State init_state(System_Vars* s_vars)
 {
 	GPIO_InitTypeDef PortA;
 	GPIO_InitTypeDef PortE;
@@ -77,23 +78,27 @@ State init_state(void)
 	
 	GPIO_WriteBit(GPIOE, DISCOVERY_LD3, Bit_SET);
 	GPIO_WriteBit(GPIOE, DISCOVERY_LD4, Bit_SET);
-	
 	/* Send "OK" on the serial port to show it works */
 	USART_SendData(USART2, 'O');
 	while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);
 	USART_SendData(USART2, 'K');
+	/**** Configure System Vars ****/
 	
+	s_vars->engine_rpm = 0000;
+	s_vars->throttle_percentage = p00;
 	
-	
+	/**** Transition to the Ready State ****/
 	return RDY_STATE;
 }
 
-State ready_state(void)
+State ready_state(System_Vars *s_vars)
 {
 	while(1) {
 		/* Check if we got a serial message */
 		if (USART_GetFlagStatus(USART2, USART_FLAG_RXNE)) {
 			USART_SendData(USART2, USART_ReceiveData(USART2));
+			/** Print out engine rpm **/
+			
 		}
 	}
 }
@@ -104,6 +109,8 @@ int main(void)
 	
 	//Spin up the state machine
 	State_Machine s;
+	System_Vars s_vars;
+	
 	s.state_table[ILLEGAL_STATE] = illegal_state;
 	s.state_table[INIT_STATE] = init_state;
 	s.state_table[RDY_STATE] = ready_state;
@@ -111,7 +118,7 @@ int main(void)
 	s.current_state = INIT_STATE;
 	while(1)
 	{
-		s.current_state = s.state_table[s.current_state]();
+		s.current_state = s.state_table[s.current_state](&s_vars);
 	}
 
 }
